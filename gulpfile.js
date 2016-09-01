@@ -2,9 +2,9 @@ var gulp = require('gulp'),
     livereload = require('gulp-livereload'),
     wiredep = require('wiredep').stream,
     gutil = require('gulp-util'),
-    connect = require('gulp-connect'),      
-    inject = require('gulp-inject'),    
-    open = require('gulp-open'); 
+    connect = require('gulp-connect'),
+    inject = require('gulp-inject'),
+    open = require('gulp-open');
 
 var jsSources = ['src/app/**/*.js'],
     cssSources = ['src/app/**/*.css'],
@@ -51,7 +51,7 @@ gulp.task('connect', function() {
 gulp.task('app', function(){
     var options = {
         uri: 'http://localhost:8080',
-        app: 'Chrome'
+        app: 'Firefox'
     };
     gulp.src('./src/index.html')
         .pipe(open(options));
