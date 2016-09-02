@@ -55,7 +55,7 @@ describe('TodoController', function(){
   describe('after calling removeTodo', function(){
     it('should have 2 objects in the array if dialog confirmed', function(){
       sandbox.stub(window, 'confirm').returns(true);
-      todoController.removeTodo();
+      todoController.removeTodo(todoController.todos[1]);
 
       $rootScope.$apply();
       expect(todoController.todos.length).toEqual(2);
@@ -64,6 +64,15 @@ describe('TodoController', function(){
     it('should have 3 objects in the array if dialog cancelled', function(){
       sandbox.stub(window, 'confirm').returns(false);
       todoController.removeTodo();
+
+      $rootScope.$apply();
+      expect(todoController.todos.length).toEqual(3);
+    });
+
+    it('should have 3 objects in the array if todo parameter not in todos list', function(){
+      sandbox.stub(window, 'confirm').returns(true);
+      var todo = { name: "todoNotInList" }
+      todoController.removeTodo(todo);
 
       $rootScope.$apply();
       expect(todoController.todos.length).toEqual(3);
