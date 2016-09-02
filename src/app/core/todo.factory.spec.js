@@ -37,17 +37,19 @@ describe('todoFactory', function(){
     });
   });
 
-  // ADD
-  describe('when add is called', function(){
+  // GETBYID
+  describe('when getById is called', function(){
+    var id = 0;
+
     it('should return data on success', function(){
       var response = {
         data: [{}]
       };
 
-      $httpBackend.whenPOST(apiUrl + '/todos')
+      $httpBackend.whenGET(apiUrl + '/todos' + id)
         .respond(response);
 
-      todoFactory.add({}).then(
+      todoFactory.getById(id).then(
         function(data) {
           expect(data.length).toEqual(1);
         }
@@ -55,10 +57,44 @@ describe('todoFactory', function(){
     });
 
     it('should return error on failure', function(){
-      $httpBackend.whenPOST(apiUrl + '/todos')
+      $httpBackend.whenGET(apiUrl + '/todos' + id)
         .respond(500);
 
-      todoFactory.getAll().then(
+      todoFactory.getById(id).then(
+        function(data){
+          expect(1).toBe(2);
+        },
+        function(error){
+          expect(error).toBeDefined;
+        }
+      );
+    });
+  });
+
+  // ADD
+  describe('when add is called', function(){
+    var todo = {};
+
+    it('should return data on success', function(){
+      var response = {
+        data: [{}]
+      };
+
+      $httpBackend.whenPOST(apiUrl + '/todos' + todo)
+        .respond(response);
+
+      todoFactory.add(todo).then(
+        function(data) {
+          expect(data.length).toEqual(1);
+        }
+      );
+    });
+
+    it('should return error on failure', function(){
+      $httpBackend.whenPOST(apiUrl + '/todos' + todo)
+        .respond(500);
+
+      todoFactory.add(todo).then(
         function(data){
           expect(1).toBe(2);
         },
@@ -70,7 +106,71 @@ describe('todoFactory', function(){
   });
 
   // REMOVE
+  describe('when remove is called', function(){
+    var todo = {};
+
+    it('should return data on success', function(){
+      var response = {
+        data: [{}]
+      };
+
+      $httpBackend.whenDELETE(apiUrl + '/todos/' + todo)
+        .respond(response);
+
+      todoFactory.remove(todo).then(
+        function(data) {
+          expect(data.length).toEqual(1);
+        }
+      );
+    });
+
+    it('should return error on failure', function(){
+      $httpBackend.whenDELETE(apiUrl + '/todos' + todo)
+        .respond(500);
+
+      todoFactory.remove(todo).then(
+        function(data){
+          expect(1).toBe(2);
+        },
+        function(error){
+          expect(error).toBeDefined;
+        }
+      );
+    });
+  });
 
   // UPDATE
+  describe('when update is called', function(){
+    var todo = {};
+
+    it('should return data on success', function(){
+      var response = {
+        data: [{}]
+      };
+
+      $httpBackend.whenPUT(apiUrl + '/todos/' + todo)
+        .respond(response);
+
+      todoFactory.update(todo).then(
+        function(data) {
+          expect(data.length).toEqual(1);
+        }
+      );
+    });
+
+    it('should return error on failure', function(){
+      $httpBackend.whenPUT(apiUrl + '/todos' + todo)
+        .respond(500);
+
+      todoFactory.update(todo).then(
+        function(data){
+          expect(1).toBe(2);
+        },
+        function(error){
+          expect(error).toBeDefined;
+        }
+      );
+    });
+  });
 
 });
