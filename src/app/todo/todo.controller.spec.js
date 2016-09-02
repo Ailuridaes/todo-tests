@@ -78,10 +78,6 @@ describe('TodoController', function(){
       $rootScope.$apply();
       expect(todoController.todos[1].edit).toEqual(false);
     })
-  })
+  });
 
-
-
-
-
-})
+});
